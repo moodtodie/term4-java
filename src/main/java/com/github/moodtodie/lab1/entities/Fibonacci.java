@@ -1,25 +1,40 @@
 package com.github.moodtodie.lab1.entities;
 
+import jakarta.validation.constraints.NotBlank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public record Fibonacci(String value) {
-    public Fibonacci(String value){
-        int tmpIndex = Integer.parseInt(value);
-        long num = -1;
+    public static final Logger logger = LoggerFactory.getLogger(Fibonacci.class);
 
-        if (tmpIndex <= 0) {
-            num = 0;
-        } else if (tmpIndex == 1){
-            num = 1;
+    public Fibonacci(@NotBlank(message = "Class Fibonacci can't get blank parameter.") String value) {
+        int index;
+
+        try {
+            index = Integer.parseInt(value);
+        } catch (Exception ignored) {
+            logger.error(String.format("Can't convert from \"%s\" to long.", value));
+            this.value = null;
+            return;
         }
 
-        long num1 = 0;
-        long num2 = 1;
-
-        for (int i = 1; i < tmpIndex; i++) {
-            num = num2 + num1;
-
-            num1 = num2;
-            num2 = num;
+        if (index > 92){
+            logger.warn("Unable to calculate: index too large.");
+            this.value = null;
+            return;
         }
-        this.value = String.valueOf(num);
+
+        if (index < 0)
+            index = 0;
+
+        if (index == 0 || index == 1) {
+            this.value = String.valueOf(index);
+            logger.info(String.format("Found fibonacci \"%s\" by index \"%s\"", this.value, value));
+            return;
+        }
+
+        final double phi = (1 + Math.sqrt(5)) / 2;
+        this.value = String.valueOf(Math.round((Math.pow(phi, index) - Math.pow(-phi, -index)) / Math.sqrt(5)));
+        logger.info(String.format("Found fibonacci \"%s\" by index \"%s\"", this.value, value));
     }
 }

@@ -1,6 +1,5 @@
 package com.github.moodtodie.lab1;
 
-import com.github.moodtodie.lab1.entities.Fibonacci;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
