@@ -16,10 +16,34 @@ import static org.junit.jupiter.api.Assertions.*;
 @WebMvcTest(FibonacciController.class)
 public class FibonacciControllerTests {
 
-    private final String zeroOut = "{\"value\":\"0\"}";
+    private final static String ZERO_OUT = "{\"value\":\"0\"}";
 
     @Autowired
     private MockMvc mvc;
+
+    @Test
+    void cache() throws Exception {
+        RequestBuilder request;
+        MvcResult result;
+
+        request = MockMvcRequestBuilders.get("/fib?index=7");
+        result = mvc.perform(request).andReturn();
+
+        request = MockMvcRequestBuilders.get("/fib?index=12");
+        result = mvc.perform(request).andReturn();
+
+        request = MockMvcRequestBuilders.get("/fib?index=3");
+        result = mvc.perform(request).andReturn();
+
+        request = MockMvcRequestBuilders.get("/fib?index=12");
+        result = mvc.perform(request).andReturn();
+
+        request = MockMvcRequestBuilders.get("/fib?index=14");
+        result = mvc.perform(request).andReturn();
+
+        request = MockMvcRequestBuilders.get("/fib?index=7");
+        result = mvc.perform(request).andReturn();
+    }
 
     @Test
     void correctUrl() throws Exception {
@@ -32,14 +56,14 @@ public class FibonacciControllerTests {
     void indexLessThenZeroUrl() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/fib?index=-12");
         MvcResult result = mvc.perform(request).andReturn();
-        assertEquals(zeroOut, result.getResponse().getContentAsString());
+        assertEquals(ZERO_OUT, result.getResponse().getContentAsString());
     }
 
     @Test
     void emptyUrl() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/fib");
         MvcResult result = mvc.perform(request).andReturn();
-        assertEquals(zeroOut, result.getResponse().getContentAsString());
+        assertEquals(ZERO_OUT, result.getResponse().getContentAsString());
     }
 
     @Test
