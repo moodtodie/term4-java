@@ -1,6 +1,6 @@
 package com.github.moodtodie.lab1.controllers;
 
-import com.github.moodtodie.lab1.entities.Error;
+import com.github.moodtodie.lab1.units.Error;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

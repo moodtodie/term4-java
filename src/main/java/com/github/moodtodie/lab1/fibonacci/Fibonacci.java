@@ -1,4 +1,4 @@
-package com.github.moodtodie.lab1.entities;
+package com.github.moodtodie.lab1.fibonacci;
 
 import jakarta.validation.constraints.NotBlank;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public record Fibonacci(String value) {
             return;
         }
 
-        if (index > 92){
+        if (index > 92) {
             logger.warn("Unable to calculate: index too large.");
             this.value = null;
             return;
@@ -29,12 +29,10 @@ public record Fibonacci(String value) {
 
         if (index == 0 || index == 1) {
             this.value = String.valueOf(index);
-            logger.info(String.format("Found fibonacci \"%s\" by index \"%s\"", this.value, value));
             return;
         }
 
         final double phi = (1 + Math.sqrt(5)) / 2;
         this.value = String.valueOf(Math.round((Math.pow(phi, index) - Math.pow(-phi, -index)) / Math.sqrt(5)));
-        logger.info(String.format("Found fibonacci \"%s\" by index \"%s\"", this.value, value));
     }
 }

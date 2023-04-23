@@ -1,4 +1,4 @@
-package com.github.moodtodie.lab1.entities;
+package com.github.moodtodie.lab1.units;
 
 import java.util.Date;
 
