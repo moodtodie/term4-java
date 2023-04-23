@@ -15,35 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(FibonacciController.class)
 public class FibonacciControllerTests {
-
     private final static String ZERO_OUT = "{\"value\":\"0\"}";
 
     @Autowired
     private MockMvc mvc;
-
-    @Test
-    void cache() throws Exception {
-        RequestBuilder request;
-        MvcResult result;
-
-        request = MockMvcRequestBuilders.get("/fib?index=7");
-        result = mvc.perform(request).andReturn();
-
-        request = MockMvcRequestBuilders.get("/fib?index=12");
-        result = mvc.perform(request).andReturn();
-
-        request = MockMvcRequestBuilders.get("/fib?index=3");
-        result = mvc.perform(request).andReturn();
-
-        request = MockMvcRequestBuilders.get("/fib?index=12");
-        result = mvc.perform(request).andReturn();
-
-        request = MockMvcRequestBuilders.get("/fib?index=14");
-        result = mvc.perform(request).andReturn();
-
-        request = MockMvcRequestBuilders.get("/fib?index=7");
-        result = mvc.perform(request).andReturn();
-    }
 
     @Test
     void correctUrl() throws Exception {

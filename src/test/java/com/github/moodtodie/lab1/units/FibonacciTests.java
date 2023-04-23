@@ -1,5 +1,6 @@
-package com.github.moodtodie.lab1.entities;
+package com.github.moodtodie.lab1.units;
 
+import com.github.moodtodie.lab1.fibonacci.Fibonacci;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
