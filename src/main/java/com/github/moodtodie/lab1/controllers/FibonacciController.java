@@ -6,9 +6,12 @@ import com.github.moodtodie.lab1.services.Counter;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class FibonacciController {
@@ -28,7 +31,20 @@ public class FibonacciController {
         counter.inc();
         final var fib = fibonacci.getByIndex(index);
 
-        logger.info(String.format("Value with index %d equal \"%s\".", index, fib.value()));
+        logger.info(String.format("Value with index %d equal \"%s\"", index, fib.value()));
         return fib;
+    }
+
+    @PostMapping("/fib")
+    public ResponseEntity<?> fibonacci(@RequestBody List<Integer> indexList) {
+        logger.info(String.format("Post fibonacci request | list = %s", indexList.toString()));
+        counter.inc();
+        List<Fibonacci> resultList = new ArrayList<>();
+
+        indexList.forEach(el -> resultList.add(fibonacci.getByIndex(el)));
+
+        logger.info("Post request completed");
+
+        return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
 }
