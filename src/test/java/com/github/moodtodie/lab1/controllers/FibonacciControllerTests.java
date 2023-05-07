@@ -1,22 +1,15 @@
 package com.github.moodtodie.lab1.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,11 +51,9 @@ public class FibonacciControllerTests {
     @Test
     void postIndexList() throws Exception {
         int[] requestBody = {7, 3, 13, 5, 11, 3, 8};
-        RequestBuilder request = MockMvcRequestBuilders.post("/fib").contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(requestBody));
+        RequestBuilder request = MockMvcRequestBuilders.post("/fib").contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(requestBody));
         MvcResult result = mvc.perform(request).andReturn();
         assertEquals(200, result.getResponse().getStatus());
-        assertEquals("[{\"value\":\"13\"},{\"value\":\"2\"},{\"value\":\"233\"},{\"value\":\"5\"}," +
-                "{\"value\":\"89\"},{\"value\":\"2\"},{\"value\":\"21\"}]", result.getResponse().getContentAsString());
+        assertEquals("[{\"value\":\"13\"},{\"value\":\"2\"},{\"value\":\"233\"},{\"value\":\"5\"}," + "{\"value\":\"89\"},{\"value\":\"2\"},{\"value\":\"21\"}]", result.getResponse().getContentAsString());
     }
 }
