@@ -57,12 +57,12 @@ public class FibonacciControllerTests {
 
     @Test
     void postIndexList() throws Exception {
-        int[] requestBody = {7, 3, 13, 5, 11, 3};
+        int[] requestBody = {7, 3, 13, 5, 11, 3, 8};
         RequestBuilder request = MockMvcRequestBuilders.post("/fib").contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(requestBody));
         MvcResult result = mvc.perform(request).andReturn();
         assertEquals(200, result.getResponse().getStatus());
         assertEquals("[{\"value\":\"13\"},{\"value\":\"2\"},{\"value\":\"233\"},{\"value\":\"5\"}," +
-                "{\"value\":\"89\"},{\"value\":\"2\"}]", result.getResponse().getContentAsString());
+                "{\"value\":\"89\"},{\"value\":\"2\"},{\"value\":\"21\"}]", result.getResponse().getContentAsString());
     }
 }
