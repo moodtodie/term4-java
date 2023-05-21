@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class FibonacciController {
@@ -62,5 +63,12 @@ public class FibonacciController {
         logger.info("Post request completed");
 
         return new ResponseEntity<>(resultList, HttpStatus.OK);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@Valid @RequestParam(value = "index", defaultValue = "0") int index) {
+        CompletableFuture.runAsync(() -> fibonacci.saveAsync(index));
+        logger.info("Asynchronous saving to the database");
+        return ResponseEntity.status(202).build();
     }
 }
