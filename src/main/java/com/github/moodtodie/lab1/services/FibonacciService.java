@@ -48,5 +48,6 @@ public class FibonacciService implements FibonacciRepository {
             entity = new FibonacciEntity(index);
             repository.save(entity);
         }
+        logger.info(String.format("The value at index %d is saved to the database", index));
     }
 }
