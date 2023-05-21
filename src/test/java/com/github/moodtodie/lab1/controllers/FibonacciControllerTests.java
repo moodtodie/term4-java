@@ -46,6 +46,9 @@ public class FibonacciControllerTests {
         RequestBuilder request = MockMvcRequestBuilders.get("/fib?index=3g");
         MvcResult result = mvc.perform(request).andReturn();
         assertEquals(400, result.getResponse().getStatus());
+
+//    FibonacciEntity getFibonacciEntityById(int index);
+//    FibonacciEntity findFibonacciEntityById(int index);
     }
 
     @Test
